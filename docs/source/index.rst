@@ -6,7 +6,7 @@
 Welcome to MassSpectraPlot's documentation!
 ===========================================
 
-Documentation is coming soon...
+Documentation will coming soon...
 
 
 
