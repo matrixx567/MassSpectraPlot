@@ -5,8 +5,17 @@ import matplotlib.pyplot as plt
 
 from matplotlib import rcParams
 
+
+#Change filetype
+filetype = "png"
+figdpi = 200
+
+
+if filetype.lower() == "pdf":
+    figdpi = 72
+
 params = {'backend': 'pdf',
-          'figure.dpi': 72,  # for pdf
+          'figure.dpi': figdpi,  # 72 for pdf
           'axes.labelsize': 10,
           'font.size': 10,
           'legend.fontsize': 8,
@@ -173,7 +182,7 @@ def __conv_inch(length_mm):
 
 
 def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
-    print "Generate PDF mass spectra plot (" + output_filename + ".pdf) from " + input_filename + ".[xy/txt]"
+    print "Generate "+filetype.upper()+" mass spectra plot (" + output_filename + "."+filetype+") from " + input_filename + ".[xy/txt]"
 
     # min and max value of the x axis
     min_xaxis = 50
@@ -183,7 +192,7 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
     figwidth_mm = 141
     left_margin_mm = 14
     right_margin_mm = 2
-    top_margin_mm = 50
+    top_margin_mm = 26
     bottom_margin_mm = 13
 
     plotwidth_mm = figwidth_mm - left_margin_mm - right_margin_mm
@@ -215,12 +224,16 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
 
 
     # dimension for the annotations in pixel
-    delta_x_text_labels_pixel = 11
-    delta_point_annotate_line_pixel = 3
-    label_annotate_arm_high_pixel = 15
-    delta_y_diagonal_annotate_arm = 10
-    delta_y_baseline_axistop = 18
-    delta_label_mznumber_pixel = 15
+    
+    delta_x_text_labels_mm = 3.8
+    delta_point_annotate_line_mm = 1
+    label_annotate_arm_high_mm = 5.3
+    delta_y_diagonal_annotate_arm_mm = 3.5
+    delta_y_baseline_axistop_mm = 6.3
+    delta_label_mznumber_pixel_mm = 7
+    
+    
+
 
     fsize, margins = __figsize_and_margins(plotsize=(__conv_inch(plotwidth_mm), __conv_inch(plotheight_mm)),
                                            subplots=(1, 1),
@@ -230,6 +243,14 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
     fig = plt.figure(figsize=fsize, )
     plt.subplots_adjust(**margins)
     ax = fig.add_subplot(111)
+    
+    # delta_dimension in pixel calculate from mm
+    delta_x_text_labels_pixel = __conv_inch(delta_x_text_labels_mm)*fig.dpi
+    delta_point_annotate_line_pixel = __conv_inch(delta_point_annotate_line_mm)*fig.dpi
+    label_annotate_arm_high_pixel = __conv_inch(label_annotate_arm_high_mm)*fig.dpi
+    delta_y_diagonal_annotate_arm = __conv_inch(delta_y_diagonal_annotate_arm_mm)*fig.dpi
+    delta_y_baseline_axistop = __conv_inch(delta_y_baseline_axistop_mm)*fig.dpi
+    delta_label_mznumber_pixel =  __conv_inch(delta_label_mznumber_pixel_mm)*fig.dpi
 
     # plot spectra line
     ax.plot(raw_values["m/z"], raw_values["intensity_normalized"], color="black", linewidth=0.8)
@@ -300,7 +321,7 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
             if label_annotate_arm_low_pixel < 0:
                 label_annotate_arm_low_pixel = 0
 
-            ax.annotate('$' + "{:.0f}".format(x_value) + '$',
+            ax.annotate("{:.0f}".format(x_value),
                         xy=(x_value_pixel, y_value_pixel + delta_point_annotate_line_pixel),
                         xycoords='axes pixels', rotation=90,
                         xytext=(label_x_pos, label_y_pos_pixel),
@@ -310,7 +331,7 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
                                                         ",angleB= 90,armB=" + str(label_annotate_arm_low_pixel) +
                                                         ",rad=0", linewidth=0.5, color='#808080'),
                         horizontalalignment='center', verticalalignment='bottom')
-            ax.annotate('$' + label_text + '$',
+            ax.annotate(label_text ,
                         xy=(x_value_pixel, y_value_pixel + delta_point_annotate_line_pixel),
                         xycoords='axes pixels', rotation=90,
                         xytext=(label_x_pos, label_y_pos_pixel + delta_label_mznumber_pixel),
@@ -341,12 +362,12 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    plt.savefig(output_filename + ".pdf", dpi=fig.dpi, format="pdf")
+    plt.savefig(output_filename + "."+filetype, dpi=fig.dpi, format=filetype)
     plt.close()
 
 
 def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, output_filename):
-    print "Generate PDF mass spectra plot (" + output_filename + ".pdf) from " + input_filename + ".xy"
+    print "Generate "+filetype.upper()+" mass spectra plot (" + output_filename + "."+filetype+") from " + input_filename + ".[xy/txt]"
 
     # min and max value of the x axis
     min_xaxis = 100
@@ -424,12 +445,12 @@ def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, ou
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    plt.savefig(output_filename + ".pdf", dpi=fig.dpi, format="pdf")
+    plt.savefig(output_filename + "."+filetype, dpi=fig.dpi, format=filetype)
     plt.close()
 
 
 def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filename2,output_filename):
-    print "Generate PDF mass spectra plot (" + output_filename + ".pdf) from " + input_filename1 + ".xy" \
+    print "Generate "+filetype.upper()+" mass spectra plot (" + output_filename + "."+filetype+") from " + input_filename1 + ".xy" \
                         + " and " + input_filename2 + ".xy"
 
     # min and max value of the x axis
@@ -574,7 +595,7 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    plt.savefig(output_filename + ".pdf", dpi=fig.dpi, format="pdf")
+    plt.savefig(output_filename + "."+filetype, dpi=fig.dpi, format=filetype)
     plt.close()
 
 
