@@ -17,13 +17,13 @@ File -> Export -> Mass Spectrum -> Save as simple x-y ASCII File (\*.xy)
 Required Software
 ---------------------------------------------------------------------
 
-For compiling the plot a Latex installation is required. On Windows use Miktex or an aquivalent package
+For compiling the plot a Latex installation is required. On Windows use Miktex or an aquivalent package.
 
 The script is programmed using Python 2.7 with the additional installed packages.
    - numpy   
    - pandas   
    - matplotlib  
-
+   
 for documentation
    - sphinx
    - sphinxcontrib-napoleon
