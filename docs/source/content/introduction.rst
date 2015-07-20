@@ -31,7 +31,7 @@ Properties
 Contributing to the Documentation
 ------------------------------------------------------------------------------------------------------------------------
 
-If you want to contribute to this documentation,head over to the `GitHub repo`_.
+If you want to contribute to this documentation, head over to the `GitHub repo`_.
 This guide has been created with `Sphinx`_.
 
 
