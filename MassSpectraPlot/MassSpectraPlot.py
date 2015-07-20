@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
 
-#Change filetype
-filetype = "png"
+# Change filetype
+filetype = "pdf"        # "png" or "pdf"
 figdpi = 200
 
-
+# correct DPI of figure if using pdf
 if filetype.lower() == "pdf":
     figdpi = 72
 
@@ -141,9 +141,9 @@ def __figsize_and_margins(plotsize, subplots=(1, 1), **absolute_margins):
     #    = nrows * plot_height + (nrows - 1) * hspace * plot_height
     # solve for width and height, using absolute margins as necessary:
     width = float((nc + (nc - 1) * rmarg['wspace']) * pw + amarg.get('left', 0) + amarg.get('right', 0)) / (
-    rmarg.get('right', 1) - rmarg.get('left', 0))
+        rmarg.get('right', 1) - rmarg.get('left', 0))
     height = float((nr + (nr - 1) * rmarg['hspace']) * ph + amarg.get('top', 0) + amarg.get('bottom', 0)) / (
-    rmarg.get('top', 1) - rmarg.get('bottom', 0))
+        rmarg.get('top', 1) - rmarg.get('bottom', 0))
 
     # now we can get any remaining relative margins
     if 'left' in amarg:
@@ -182,7 +182,8 @@ def __conv_inch(length_mm):
 
 
 def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
-    print "Generate "+filetype.upper()+" mass spectra plot (" + output_filename + "."+filetype+") from " + input_filename + ".[xy/txt]"
+    print "Generate {0} mass spectra plot ({1}.{2}) from {3}.[xy/txt]".format(filetype.upper(), output_filename,
+                                                                              filetype, input_filename)
 
     # min and max value of the x axis
     min_xaxis = 50
@@ -222,18 +223,13 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
         caption_values.loc[i, "m/z"] = float(raw_values.loc[index, "m/z"])
         caption_values.loc[i, "intensity_normalized"] = value  # add intensity to caption table
 
-
     # dimension for the annotations in pixel
-    
     delta_x_text_labels_mm = 3.8
     delta_point_annotate_line_mm = 1
     label_annotate_arm_high_mm = 5.3
     delta_y_diagonal_annotate_arm_mm = 3.5
     delta_y_baseline_axistop_mm = 6.3
     delta_label_mznumber_pixel_mm = 7
-    
-    
-
 
     fsize, margins = __figsize_and_margins(plotsize=(__conv_inch(plotwidth_mm), __conv_inch(plotheight_mm)),
                                            subplots=(1, 1),
@@ -243,14 +239,14 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
     fig = plt.figure(figsize=fsize, )
     plt.subplots_adjust(**margins)
     ax = fig.add_subplot(111)
-    
+
     # delta_dimension in pixel calculate from mm
-    delta_x_text_labels_pixel = __conv_inch(delta_x_text_labels_mm)*fig.dpi
-    delta_point_annotate_line_pixel = __conv_inch(delta_point_annotate_line_mm)*fig.dpi
-    label_annotate_arm_high_pixel = __conv_inch(label_annotate_arm_high_mm)*fig.dpi
-    delta_y_diagonal_annotate_arm = __conv_inch(delta_y_diagonal_annotate_arm_mm)*fig.dpi
-    delta_y_baseline_axistop = __conv_inch(delta_y_baseline_axistop_mm)*fig.dpi
-    delta_label_mznumber_pixel =  __conv_inch(delta_label_mznumber_pixel_mm)*fig.dpi
+    delta_x_text_labels_pixel = __conv_inch(delta_x_text_labels_mm) * fig.dpi
+    delta_point_annotate_line_pixel = __conv_inch(delta_point_annotate_line_mm) * fig.dpi
+    label_annotate_arm_high_pixel = __conv_inch(label_annotate_arm_high_mm) * fig.dpi
+    delta_y_diagonal_annotate_arm = __conv_inch(delta_y_diagonal_annotate_arm_mm) * fig.dpi
+    delta_y_baseline_axistop = __conv_inch(delta_y_baseline_axistop_mm) * fig.dpi
+    delta_label_mznumber_pixel = __conv_inch(delta_label_mznumber_pixel_mm) * fig.dpi
 
     # plot spectra line
     ax.plot(raw_values["m/z"], raw_values["intensity_normalized"], color="black", linewidth=0.8)
@@ -299,7 +295,7 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
             calc_delta = max(list_text_pos) - length_x_axis_pixel
             for index in range(len(list_text_pos) - 1, 0, -1):
                 print "change", list_text_pos[index], calc_delta
-                if index > 1 and list_text_pos[index] - calc_delta > list_text_pos[index-1] + delta_x_text_labels_pixel:
+                if index > 1 and list_text_pos[index] - calc_delta > list_text_pos[index - 1] + delta_x_text_labels_pixel:
                     list_text_pos[index] = list_text_pos[index] - calc_delta
                     break
                 else:
@@ -331,7 +327,7 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
                                                         ",angleB= 90,armB=" + str(label_annotate_arm_low_pixel) +
                                                         ",rad=0", linewidth=0.5, color='#808080'),
                         horizontalalignment='center', verticalalignment='bottom')
-            ax.annotate(label_text ,
+            ax.annotate(label_text,
                         xy=(x_value_pixel, y_value_pixel + delta_point_annotate_line_pixel),
                         xycoords='axes pixels', rotation=90,
                         xytext=(label_x_pos, label_y_pos_pixel + delta_label_mznumber_pixel),
@@ -362,12 +358,13 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    plt.savefig(output_filename + "."+filetype, dpi=fig.dpi, format=filetype)
+    plt.savefig(output_filename + "." + filetype, dpi=fig.dpi, format=filetype)
     plt.close()
 
 
 def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, output_filename):
-    print "Generate "+filetype.upper()+" mass spectra plot (" + output_filename + "."+filetype+") from " + input_filename + ".[xy/txt]"
+    print "Generate {0} mass spectra plot ({1}.{2}) from {3}.[xy/txt]".format(filetype.upper(), output_filename,
+                                                                              filetype, input_filename)
 
     # min and max value of the x axis
     min_xaxis = 100
@@ -408,10 +405,8 @@ def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, ou
     if min_xaxis is not None and max_xaxis is not None:
         ax.set_xlim([int(min_xaxis), int(max_xaxis)])
 
-
     # annotations
     # length in data value (in %)
-
     annotate_point(403, 83, r'Peak II', raw_values)
     annotate_point(253, 83, r'Peak I', raw_values)
 
@@ -420,7 +415,6 @@ def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, ou
     annotate_distance(339, 367, 25, '$xy$', raw_values, rotate_text=90)
     annotate_distance(321, 349, 35, '$xy$', raw_values, rotate_text=90)
     annotate_distance(253, 349, 72, '$-96$', raw_values)
-
 
     # remove top and right axis
     ax.spines['top'].set_visible(False)
@@ -445,22 +439,22 @@ def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, ou
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    plt.savefig(output_filename + "."+filetype, dpi=fig.dpi, format=filetype)
+    plt.savefig(output_filename + "." + filetype, dpi=fig.dpi, format=filetype)
     plt.close()
 
 
-def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filename2,output_filename):
-    print "Generate "+filetype.upper()+" mass spectra plot (" + output_filename + "."+filetype+") from " + input_filename1 + ".xy" \
-                        + " and " + input_filename2 + ".xy"
+def generate_massspectra_two_plot_manual_annotation(input_filename1, input_filename2, output_filename):
+    print "Generate {0} mass spectra plot ({1}.{2}) from {3}.xy and {4}.xy".format(filetype.upper(), output_filename,
+                                                                                   filetype, input_filename1,
+                                                                                   input_filename2)
 
     # min and max value of the x axis
     min_xaxis = 50
     max_xaxis = 475
 
-    #labels
+    # labels
     label1 = "Substance 1"
     label2 = "Substance 2"
-
 
     # dimensions of the single plot
     figwidth_mm = 141
@@ -476,18 +470,17 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
 
     # read xy input data
     raw_values1 = pd.read_csv(input_filename1 + ".xy", sep=" ", names=["m/z", "intensity"],
-                             dtype={"m/z": np.float64, "intensity": np.float64})
+                              dtype={"m/z": np.float64, "intensity": np.float64})
     # normalize input data
     max_val = np.max(raw_values1['intensity'])
     raw_values1["intensity_normalized"] = raw_values1['intensity'] / max_val * 100.0  # normalize intensity to percent
 
     # read xy input data
     raw_values2 = pd.read_csv(input_filename2 + ".xy", sep=" ", names=["m/z", "intensity"],
-                             dtype={"m/z": np.float64, "intensity": np.float64})
+                              dtype={"m/z": np.float64, "intensity": np.float64})
     # normalize input data
     max_val = np.max(raw_values2['intensity'])
     raw_values2["intensity_normalized"] = raw_values2['intensity'] / max_val * 100.0  # normalize intensity to percent
-
 
     fsize, margins = __figsize_and_margins(plotsize=(__conv_inch(plotwidth_mm), __conv_inch(plotheight_mm)),
                                            subplots=(1, 1),
@@ -500,7 +493,7 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     ax = fig.add_subplot(211)
 
     # plot spectra line
-    plt1, = ax.plot(raw_values1["m/z"], raw_values1["intensity_normalized"], color="black", linewidth=0.8, label = label1)
+    plt1, = ax.plot(raw_values1["m/z"], raw_values1["intensity_normalized"], color="black", linewidth=0.8, label=label1)
     legend = plt.legend(handles=[plt1], loc=2)
     legend.get_frame().set_linewidth(0)
 
@@ -508,14 +501,12 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     if min_xaxis is not None and max_xaxis is not None:
         ax.set_xlim([int(min_xaxis), int(max_xaxis)])
 
-    #annotate plot1
+    # annotate plot1
     annotate_point(253, 60, r'Peak 1', raw_values1)
-    annotate_distance(385, 403, 45, r'$-18$', raw_values1,rotate_text=90)
-    annotate_distance(367, 385, 45, r'$-18$', raw_values1,rotate_text=90)
+    annotate_distance(385, 403, 45, r'$-18$', raw_values1, rotate_text=90)
+    annotate_distance(367, 385, 45, r'$-18$', raw_values1, rotate_text=90)
     annotate_distance(321, 349, 75, r'$xy$', raw_values1, rotate_text=0)
     annotate_point(403, 60, r'Peak 2', raw_values1)
-
-
 
     # remove top and right axis
     ax.spines['top'].set_visible(False)
@@ -539,7 +530,6 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-
     # set x labels
     plt.xticks(rotation='vertical')
     start, end = ax.get_xlim()
@@ -551,10 +541,11 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    #generate plot2
+    # generate plot2
     ax = fig.add_subplot(212)
 
-    plt2, = ax.plot(raw_values2["m/z"], raw_values2["intensity_normalized"], color="#606060", linewidth=0.8, label=label2)
+    plt2, = ax.plot(raw_values2["m/z"], raw_values2["intensity_normalized"], color="#606060", linewidth=0.8,
+                    label=label2)
     legend = plt.legend(handles=[plt2], loc=2)
     legend.get_frame().set_linewidth(0)
 
@@ -562,13 +553,13 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     if min_xaxis is not None and max_xaxis is not None:
         ax.set_xlim([int(min_xaxis), int(max_xaxis)])
 
-
+    # annotate
     annotate_point(253, 60, r'Peak I', raw_values2)
     annotate_point(189, 60, r'189', raw_values2)
     annotate_point(215, 60, r'215', raw_values2)
     annotate_distance(385, 445, 30, r'Multiple'"\n"r'line'"\n"'annotation', raw_values2)
-    annotate_distance(367, 385, 45, r' -18', raw_values2,rotate_text=90)
-    annotate_distance(349, 367, 45, r' -18', raw_values2,rotate_text=90)
+    annotate_distance(367, 385, 45, r' -18', raw_values2, rotate_text=90)
+    annotate_distance(349, 367, 45, r' -18', raw_values2, rotate_text=90)
     annotate_distance(321, 349, 75, r'xy', raw_values2, rotate_text=0)
     annotate_point(445, 60, r'Peak 2', raw_values2)
 
@@ -595,12 +586,14 @@ def generate_massspectra_two_plot_manual_annotation(input_filename1,input_filena
     # set grid
     plt.grid(True, axis="y", color='black', linestyle=':', linewidth=0.1)
 
-    plt.savefig(output_filename + "."+filetype, dpi=fig.dpi, format=filetype)
+    plt.savefig(output_filename + "." + filetype, dpi=fig.dpi, format=filetype)
     plt.close()
-
 
 
 if __name__ == "__main__":
     generate_massspectra_plot_automatic_labels("../examples/inputs/substance1", "../examples/ex1")
+
     generate_massspectra_plot_distance_peak_manual_annotation("../examples/inputs/substance2", "../examples/ex2")
-    generate_massspectra_two_plot_manual_annotation("../examples/inputs/substance1","../examples/inputs/substance2","../examples/ex3")
+
+    generate_massspectra_two_plot_manual_annotation("../examples/inputs/substance1",
+                                                    "../examples/inputs/substance2", "../examples/ex3")
