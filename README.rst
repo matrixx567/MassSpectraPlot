@@ -31,4 +31,4 @@ for documentation
 Documentation
 ----------------------------------------------------------------------
 
-The documentation with examples and how-tos is available at `Read the Docs <http://massspectraplot.readthedocs.org>`.
+The documentation with examples and how-tos is available at `Read the Docs <http://massspectraplot.readthedocs.org>`_.
