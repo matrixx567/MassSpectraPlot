@@ -10,6 +10,8 @@ MassSpectraPlot
 Plotting mass spectra with Matplotlib.
 The project provides a package to plot high-quality mass spectra for scientific papers and thesis.
 
+.. image:: https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex3.png
+   :width: 70%
 
 Required Software
 ---------------------------------------------------------------------
