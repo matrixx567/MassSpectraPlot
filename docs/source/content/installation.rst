@@ -6,18 +6,23 @@ on Windows using the Miktex package. But it should also work on any other system
 
 
 The script is programmed using Python 2.7 with the additional installed packages:
-   - numpy
-   - pandas
-   - matplotlib
+   * numpy
+   * pandas
+   * matplotlib
 
 For the documentation following packages are used:
-   - sphinx
-   - sphinxcontrib-napoleon
-   - sphinx-rtd-theme
+   * sphinx
+   * sphinxcontrib-napoleon
+   * sphinx-rtd-theme
 
 
 A ``requirements.txt`` for virtualenv is also available in the repository.
 
+
+Clone the Github repository
+----------------------------------------------------------------------------------------------------------------------
+
+Clone the repository `<https://github.com/matrixx567/MassSpectraPlot.git>`_ from Github.
 
 Generate the examples
 --------------------------------------------------------------------------------

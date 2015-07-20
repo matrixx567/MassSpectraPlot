@@ -1,22 +1,38 @@
 Using the script
 ========================================================================================================================
 
+The ``MassSpectraPlot.py`` script contains three different examples for plotting a mass spectrum.
 
-Example 1
+
+Exporting the raw data from the mass spectra software
 ------------------------------------------------------------------------------------------------------------------------
 
 The input data for the spectra can be exported from Bruker Daltonics DataAnalysis
 File -> Export -> Mass Spectrum -> Save as simple x-y ASCII File (\*.xy)
 
+
+Generating the peak label list
+------------------------------------------------------------------------------------------------------------------------
+
+
+
+Automatic annotate the peaks
+------------------------------------------------------------------------------------------------------------------------
+
+
+
 tbd.
 
 
-Example 2
+Manually annotate peaks
 ------------------------------------------------------------------------------------------------------------------------
 
 tbd.
 
 
-Example 3
+Manually annotate distances between peaks
 ------------------------------------------------------------------------------------------------------------------------
 
+
+Customize the plots
+------------------------------------------------------------------------------------------------------------------------
