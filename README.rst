@@ -32,3 +32,7 @@ Documentation
 ----------------------------------------------------------------------
 
 The documentation with examples and how-tos is available at `Read the Docs <http://massspectraplot.readthedocs.org>`_.
+
+Contribution
+----------------------------------------------------------------------
+Feel free to contact me if you have questions or comments. It would be nice if you also share your results when using the scripts.
