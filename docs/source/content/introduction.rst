@@ -14,7 +14,9 @@ scientific publications with Latex support.
     :width: 70%
 
 
-The package provides three different ways to plot and annotate a mass spectrum. Some examples can be found in the :ref:`Screenshots` section.
+The package provides three different ways to plot and annotate a mass spectrum. Some examples can be found
+in the :ref:`Screenshots` section.
+
 
 
 Properties
