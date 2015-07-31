@@ -1,6 +1,6 @@
 .. _Screenshots:
 
-Screenshots
+Examples
 ===========
 
 
