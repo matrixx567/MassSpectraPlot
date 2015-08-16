@@ -6,9 +6,16 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 
 
-# Change filetype
 filetype = "pdf"        # "png" or "pdf"
+"""str: Filetype of the outputfile
+
+Tested with "pdf" and "png"
+"""
+
 figdpi = 200
+"""int: DPI of the image output file
+"""
+
 
 # correct DPI of figure if using pdf
 if filetype.lower() == "pdf":
@@ -37,7 +44,22 @@ plt.rcParams.update(params)
 
 
 def __get_max_peak(x_value, raw_values):
-    raw_values_index = raw_values[raw_values["m/z"] == x_value].index[0]
+    """Search for the local peak next to the x-value.
+
+    The value searches in the near area of the given x-value for the maximum (local)
+	peak, which correspondends to the data.
+	
+    Args:
+        x_value (float): m/z value (x-coordinate) of the point, to be annotated
+        raw_values (Pandas.DataFrame): Data values, which should be annotated
+		
+	Returns:
+		y value of the peak, next to the given x value 
+
+    """
+	
+	
+	raw_values_index = raw_values[raw_values["m/z"] == x_value].index[0]
 
     value, index = float(raw_values.loc[raw_values_index - 5, "intensity_normalized"]), raw_values_index - 5
 
@@ -48,6 +70,23 @@ def __get_max_peak(x_value, raw_values):
 
 
 def annotate_point(x1, y_pos=0, text='', raw_values=None):
+	"""Annotage a specific point.
+
+    Annotate a point with a label. The label will be placed vertically
+	with an additional line.
+	
+	The function uses the data values and searches for the peak of the 
+	value to be annotated. Therefore the ``raw_values`` parameter is used
+	
+    Args:
+        x1 (float): m/z value (x-coordinate) of the point, to be annotated
+        y_pos (Optional[float]): Position of the label beginning (y-coordinate).
+			The value uses the scale of the datapoints.
+        text (str): Label text
+        raw_values (Pandas.DataFrame): Data values, which should be annotated
+
+    """
+	
     delta_point_annotate_line_pixel = 1
 
     if raw_values is not None:
@@ -65,7 +104,24 @@ def annotate_point(x1, y_pos=0, text='', raw_values=None):
 
 
 def annotate_distance(x1=0, x2=0, y_pos=0, text='', raw_values=None, rotate_text=0):
-    delta_point_annotate_line_pixel = 1
+    """Annotage the distance between two peaks
+
+	Annotate the distance between two given peaks. The text can be placed with a 
+	given angle.
+	
+    
+    Args:
+        x1 (float): m/z value (x-coordinate) of the left point
+		x2 (float): m/z value (x-coordinate) of the right point
+        y_pos (Optional[float]): Position of the label beginning (y-coordinate).
+			The value uses the scale of the datapoints.
+        text (str): Label text
+        raw_values (Pandas.DataFrame): Data values, which should be annotated
+		rotate_text (Optional[int]): Rotation of the label, should be 0 or 90
+
+    """
+	
+	delta_point_annotate_line_pixel = 1
 
     if raw_values is not None:
         if __get_max_peak(x1, raw_values) < (y_pos - delta_point_annotate_line_pixel):
