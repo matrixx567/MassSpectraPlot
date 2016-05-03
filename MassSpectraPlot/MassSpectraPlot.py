@@ -182,8 +182,8 @@ def __conv_inch(length_mm):
 
 
 def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
-    print "Generate {0} mass spectra plot ({1}.{2}) from {3}.[xy/txt]".format(filetype.upper(), output_filename,
-                                                                              filetype, input_filename)
+    print("Generate {0} mass spectra plot ({1}.{2}) from {3}.[xy/txt]".format(filetype.upper(), output_filename,
+                                                                              filetype, input_filename))
 
     # min and max value of the x axis
     min_xaxis = 50
@@ -291,10 +291,10 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
 
         # move annotation to left, if the label is out of the axes range
         if len(list_text_pos) > 0 and max(list_text_pos) >= length_x_axis_pixel:
-            print "move labels to left"
+            print("move labels to left")
             calc_delta = max(list_text_pos) - length_x_axis_pixel
             for index in range(len(list_text_pos) - 1, 0, -1):
-                print "change", list_text_pos[index], calc_delta
+                print("change", list_text_pos[index], calc_delta)
                 if index > 1 and list_text_pos[index] - calc_delta > list_text_pos[index - 1] + delta_x_text_labels_pixel:
                     list_text_pos[index] = list_text_pos[index] - calc_delta
                     break
@@ -363,8 +363,8 @@ def generate_massspectra_plot_automatic_labels(input_filename, output_filename):
 
 
 def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, output_filename):
-    print "Generate {0} mass spectra plot ({1}.{2}) from {3}.[xy/txt]".format(filetype.upper(), output_filename,
-                                                                              filetype, input_filename)
+    print("Generate {0} mass spectra plot ({1}.{2}) from {3}.[xy/txt]".format(filetype.upper(), output_filename,
+                                                                              filetype, input_filename))
 
     # min and max value of the x axis
     min_xaxis = 100
@@ -444,9 +444,9 @@ def generate_massspectra_plot_distance_peak_manual_annotation(input_filename, ou
 
 
 def generate_massspectra_two_plot_manual_annotation(input_filename1, input_filename2, output_filename):
-    print "Generate {0} mass spectra plot ({1}.{2}) from {3}.xy and {4}.xy".format(filetype.upper(), output_filename,
+    print("Generate {0} mass spectra plot ({1}.{2}) from {3}.xy and {4}.xy".format(filetype.upper(), output_filename,
                                                                                    filetype, input_filename1,
-                                                                                   input_filename2)
+                                                                                   input_filename2))
 
     # min and max value of the x axis
     min_xaxis = 50
