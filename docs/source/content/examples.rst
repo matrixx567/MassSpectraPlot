@@ -33,23 +33,50 @@ An example of this file can be found in ``examples/inputs`` (`Github examples fo
 Automatic annotate the peaks
 ------------------------------------------------------------------------------------------------------------------------
 
+An example for automic generation of the labels is shown in method
+``generate_massspectra_plot_automatic_labels(input_filename, output_filename)``.
 
-
-tbd.
+The function will read the raw values and the label values from the input files. After that the function will generate
+all labels with a definated minimum distance (``delta_x_text_labels_mm``) between the labels`.
 
 
 Manually annotate peaks
 ------------------------------------------------------------------------------------------------------------------------
 
-tbd.
+A peak can be annotated with the function ``annotate_point``. Therefore the x value of the point and the horizontal 
+position of the label have to be given. By using the ``raw_values`` dataframe the function searches the peak next to
+the given ``x_value`` automatically.
+ 
+The method ``generate_massspectra_plot_distance_peak_manual_annotation(input_filename, output_filename)`` shows the
+usage of the explained function.
 
 
 Manually annotate distances between peaks
 ------------------------------------------------------------------------------------------------------------------------
 
+A distance between two peaks can be plotted by using the function ``annotate_distance``.
+
+
+An example is shown in the function ``generate_massspectra_plot_distance_peak_manual_annotation(input_filename, output_filename)``.
+
+
+
+
+Comparing two individual plots
+------------------------------------------------------------------------------------------------------------------------
+
+The function ``generate_massspectra_two_plot_manual_annotation(input_filename1, input_filename2, output_filename)``
+plots two graphs vertically.
+
+It is important to use the right raw_values data for annotating some peaks. 
+
+
 
 Customize the plots
 ------------------------------------------------------------------------------------------------------------------------
+
+The margins and dimensions of the plots are given in milimeter and can be easily customized.
+
 
 
 .. _GitHub examples folder: https://github.com/matrixx567/MassSpectraPlot/tree/master/examples
