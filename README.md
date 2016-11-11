@@ -2,7 +2,7 @@
 
 Plotting mass spectra with Matplotlib. The project provides a package to plot high-quality mass spectra for scientific papers and thesis.
 
-![https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex3.png](Example)
+![Example](https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex3.png)
 
 ## Introduction
 
@@ -58,9 +58,9 @@ An example of this file can be found in [`examples/inputs` folder][githubexample
 
 An example for automic generation of the labels is shown in method `generate_massspectra_plot_automatic_labels(input_filename, output_filename)`.
 
-The function will read the raw values and the label values from the input files. After that the function will generate all labels with a definated minimum distance (`delta_x_text_labels_mm`) between the labels`.
+The function will read the raw values and the label values from the input files. After that the function will generate all labels with a definated minimum distance (`delta_x_text_labels_mm`) between the labels.
 
-![https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex1.png](Example 1)
+![Example 1](https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex1.png)
 
 ### Manually annotate peaks
 
@@ -68,7 +68,7 @@ A peak can be annotated with the function `annotate_point`. Therefore the x valu
 
 The method `generate_massspectra_plot_distance_peak_manual_annotation(input_filename, output_filename)` shows the usage of the explained function.
 
-![https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex2.png](Example 2)
+![Example 2](https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex2.png)
 
 ### Manually annotate distances between peaks
 
@@ -80,7 +80,7 @@ An example is shown in the function `generate_massspectra_plot_distance_peak_man
 
 The function `generate_massspectra_two_plot_manual_annotation(input_filename1, input_filename2, output_filename)` plots two graphs vertically.
 
-![https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex1.pngµ](Example 3)
+![Example 3](https://raw.githubusercontent.com/matrixx567/MassSpectraPlot/master/examples/ex1.png)
 
 ### Customize the plots
 
